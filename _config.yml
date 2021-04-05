@@ -1,0 +1,49 @@
+# Site Settings
+baseurl: ""
+url : "https://juliobonon.github.io"
+
+# Blog Settings
+theme_settings :
+  title : crazy stuff
+  favicon : assets/favicon.ico
+
+  # Profile Settings
+  profile :
+    image : assets/img/me.jpeg
+    username : Julio Cesar Bonon
+    description : Passionate about software development, hardware and music 🎸.
+    experience :
+      - start : 2019-08-11
+        end : present
+        experience : Toradex, Embedded Linux Intern
+    skills : 
+      - skill : Embedded Linux, Docker and Python
+        value : 85  # Percent value
+        
+  # Icons
+  icons :
+    email: juliocesarbonon@gmail.com
+    linkedin: https://www.linkedin.com/in/julio-bonon-340806122/
+    github: juliobonon
+    gitlab: 
+    bitbucket: 
+    google_plus:
+    twitter:
+    youtube:
+    facebook:
+    instagram:
+
+  # Disqus
+  disqus_shortname :
+
+# Pagination
+paginate: 5
+paginate_path: "blog/page:num"
+
+# Build Ssttings
+sass:
+  sass_dir: _sass
+  style: :compressed
+gems: [jekyll-paginate]
+bootstrap:
+  assets: true

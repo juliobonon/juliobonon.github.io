@@ -1,0 +1,9 @@
+- project :
+    print : True # If 'False' is selected, it will not be displayed in 'home.html > aside > .proj-content'. 
+    modal : True # If 'True' is selected, modal can open in 'portfolio.html'. 
+    url : https://github.com/juliobonon/sigascript # Full URL
+    image : "sigascript.png" # path: assets/project/
+    date : 2020.06.09 - Developing
+    title : sigascript
+    summary : An mobile application to show students data for my college.
+    description : An mobile application to show students data for my college.

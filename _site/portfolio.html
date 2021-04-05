@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!--Favicon-->
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css"
+    integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
+
+  <!-- Spoqa Han Sans -->
+  <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- OG Tag -->
+  
+  <meta name="title" content="crazy stuff-Portfolio" />
+  <meta name="author" content="Julio Cesar Bonon" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="robots" content="index,follow" />
+
+  <meta property="og:title" content="crazy stuff-Portfolio" />
+  <meta property="og:description" content="" />
+  <meta property="og:type" content="website, blog" />
+  <meta property="og:image"
+    content="http://localhost:4000/assets/img/me.jpeg" />
+  <meta property="og:site_name" content="crazy stuff" />
+  <meta property="og:url" content="http://localhost:4000/portfolio.html" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="crazy stuff-Portfolio" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image"
+    content="http://localhost:4000/assets/img/me.jpeg" />
+
+  <title>crazy stuff-Portfolio</title>
+</head>
+<body>
+  <div class="container">
+    
+
+<header>
+  <nav>
+    <ul>
+      
+      <a href="http://localhost:4000">
+        <li class="btn-nav">Blog</li>
+      </a>
+      <a href="http://localhost:4000/tags">
+        <li class="btn-nav">Tags</li>
+      </a>
+      <li class="current">Portfolio</li>
+      
+    </ul>
+  </nav>
+</header>
+
+
+</div><!-- This Tag means End .container -->
+<div id="protfolio">
+  <section id="about-me">
+    <div class="row">
+      <div class="img-wrap col-12 col-md-4">
+        <div class="img">
+          <img src="/assets/img/me.jpeg" alt="user_image">
+        </div>
+      </div>
+      <div class="text-wrap col-12 col-md-8">
+        <h2 class="username">Julio Cesar Bonon</h2>
+        <p class="description">Passionate about software development, hardware and music 🎸.</p>
+
+        <ul id="icons">
+          
+
+<li>
+  <a href="mailto:juliocesarbonon@gmail.com">
+    <i class="fas fa-envelope"></i>
+  </a>
+</li>
+
+
+
+<li>
+  <a href="https://www.linkedin.com/in/julio-bonon-340806122/">
+    <i class="fab fa-linkedin"></i>
+  </a>
+</li>
+
+
+
+<li>
+  <a href="https://github.com/juliobonon">
+    <i class="fab fa-github"></i>
+  </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </ul>
+      </div>
+    </div>
+    <div class="bg"></div>
+  </section>
+  <!-- career section -->
+  <section id="career" class="row">
+    <article class="exper col-12 col-md-6">
+      <p class="title">EXPERIENCE</p>
+      <ul class="exper-list">
+        
+        <li class="meta">
+          <p class="date">2019-08-11 ~ present</p>
+          <p class="description">Toradex, Embedded Linux Intern</p>
+        </li>
+        
+      </ul>
+    </article>
+    <article class="skills col-12 col-md-6">
+      <p class="title">SKILLS</p>
+      <ul class="skill-list">
+        
+        <li class="skill">
+          <p class="name">Embedded Linux, Docker and Python</p>
+          <div class="progress">
+            <div class="progress-bar" style="width: 85%">
+              <div class="progress-value">85%</div>
+            </div>
+          </div>
+        </li>
+        
+      </ul>
+    </article>
+  </section>
+
+  <section id="project">
+  <div class="project-wrap">
+    <p class="title">PROJECTS 🙋🏻</p>
+    <div class="card-container">
+      
+      
+      
+      <div class="card-wrapper">
+        <div class="card">
+          
+          <div class="img-wrap">
+            <img src="http://localhost:4000/assets/project/sigascript.png" alt="">
+          </div>
+          
+          <div class="text-wrap ">
+            <div class="title-wrap">
+              <p class="date">2020.06.09 - Developing</p>
+              <div class="title">sigascript</div>
+            </div>
+            <div class="meta">
+              
+            </div>
+            <div class="description">An mobile application to show students data for my college.</div>
+          </div>
+          <div class="icons">
+            
+            
+            <a href="https://github.com/juliobonon/sigascript/subscription"><i class="far fa-eye"></i></a>
+            <a href="https://github.com/juliobonon/sigascript"><i class="fas fa-star"></i></a>
+            <a href="https://github.com/juliobonon/sigascript/fork"><i class="fas fa-code-branch"></i></a>
+            
+            
+            <a title="1" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a>
+            
+          </div>
+        </div>
+      </div>
+      <!-- Modal Box -->
+      
+      <div id="1" class="modal">
+  <div class="modal-background" onClick="close_modal()"></div>
+  <div class="modal-content">
+    <div class="close-modal" onClick="close_modal()">
+      <p>&times;</p>
+    </div>
+    <div class="header">
+      <p class="date">2020.06.09 - Developing</p>
+      <p class="title">sigascript</p>
+      <p class="summary">An mobile application to show students data for my college.</p>
+    </div>
+    <div class="content">
+      
+      <img src="http://localhost:4000/assets/project/sigascript.png" alt="">
+      
+      <div class="description">An mobile application to show students data for my college.</div>
+      
+    </div>
+  </div>
+</div>
+      
+      <!-- Modal Box -->
+      
+    </div>
+  </div>
+  <div class="bg"></div>
+</section>
+
+<!-- modal -->
+<script type="text/javascript" src="http://localhost:4000/assets/js/modal.js"></script>
+</div>
+  </div>
+</body>
+
+</html>

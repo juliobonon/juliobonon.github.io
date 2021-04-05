@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!--Favicon-->
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css"
+    integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
+
+  <!-- Spoqa Han Sans -->
+  <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!-- OG Tag -->
+  
+  <meta name="title" content="crazy stuff-Running Rust on Torizon" />
+  <meta name="author" content="Julio Cesar Bonon" />
+  <meta name="keywords" content="Rust,Docker,Embedded Linux" />
+  <meta name="description" content="How to cross-compile a Rust binary using Docker" />
+  <meta name="robots" content="index,follow" />
+
+  <meta property="og:title" content="crazy stuff-Running Rust on Torizon" />
+  <meta property="og:description" content="How to cross-compile a Rust binary using Docker" />
+  <meta property="og:type" content="website, blog" />
+  <meta property="og:image"
+    content="http://localhost:4000/assets/img/me.jpeg" />
+  <meta property="og:site_name" content="crazy stuff" />
+  <meta property="og:url" content="http://localhost:4000/2021/04/05/markdown-and-html.html" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="crazy stuff-Running Rust on Torizon" />
+  <meta name="twitter:description" content="How to cross-compile a Rust binary using Docker" />
+  <meta name="twitter:image"
+    content="http://localhost:4000/assets/img/me.jpeg" />
+
+  <title>crazy stuff-Running Rust on Torizon</title>
+</head>
+<body>
+  <div class="container">
+    
+
+<header>
+  <nav>
+    <ul>
+      
+      <!-- others -->
+      <a href="http://localhost:4000">
+        <li class="current btn-nav">Blog</li>
+      </a>
+      <a href="http://localhost:4000/tags">
+        <li class="btn-nav">Tags</li>
+      </a>
+      <a href="http://localhost:4000/portfolio">
+        <li class="btn-nav">Portfolio</li>
+      </a>
+      
+    </ul>
+  </nav>
+</header>
+<div id="post">
+  <section class="post-header">
+    <h1 class="title">Running Rust on Torizon</h1>
+    <p class="subtitle">How to cross-compile a Rust binary using Docker</p>
+    <p class="meta">
+      April 5, 2021
+    </p>
+  </section>
+  <section class="post-content">
+    <p>How to cross-compile a Rust binary using Docker</p>
+
+<h1 id="running-rust-on-torizon">Running Rust on Torizon</h1>
+
+<p><img src="https://rustacean.net/assets/rustacean-flat-happy.png" alt="Rust" width="200" height="150" />  Rust is a multi-paradigm programming language designed for performance and safety, especially safe concurrency. Rust is syntactically similar to C++, can guarantee memory safety by using a borrow checker to validate references.Rust achieves memory safety without garbage collection, and reference counting is optional. From Pop!_OS by System76 GTK3 desktop applications to nmp(Node Package Manager), Rust is being used on several <a href="https://www.rust-lang.org/pt-BR/production/users">production applications</a>.</p>
+
+<p>As written on the official <a href="https://www.rust-lang.org/">Rust website</a>, if you are targeting low-resource devices and need low-level control without giving up high-level languages conveniences, then Rust is for you.</p>
+
+<h1 id="deploying-the-application-to-the-board">Deploying the Application to the Board</h1>
+
+<p><img src="https://docs.toradex.com/109253-rust-gtk.gif?v=2" alt="Deploying the application on Apalis iMX6" /></p>
+
+<p>We are going to deploy a very simple GTK application with Rust. In case you just want to see the application running on the module, you can run the <a href="https://github.com/juliobonon/rustarm/blob/master/gtk-rs/docker-compose.yaml">docker-compose</a> as described as shown on the gif above, just be aware to replace the <code class="language-plaintext highlighter-rouge">gladearm</code> image with the respective board architecture:</p>
+
+<ul>
+  <li>armv8: <a href="https://hub.docker.com/repository/docker/reininy/gladearmv8">reininy/gladearmv8</a></li>
+  <li>arvm7: <a href="https://hub.docker.com/repository/docker/reininy/gladearm">reininy/gladearm</a></li>
+</ul>
+
+<p><img src="https://docs.toradex.com/109258-gtk-rs-on-torizon.png?w=600" alt="GTK Application running on Apalis iMX6" /></p>
+
+<h1 id="understading-the-build-and-deploy-process">Understading the build and deploy process</h1>
+
+<p>Now that you saw the application running, let’s understand the process of deploying the application to the module. As said before, Rust is a compilled language, in order to run the application on the board we need to cross-compile the binary generated by <a href="https://doc.rust-lang.org/book/ch01-03-hello-cargo.html">cargo</a> using a multi-stage build image. Take a look at the <a href="https://github.com/juliobonon/rustarm/blob/master/gtk-rs/Dockerfile">Dockerfile</a>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ARG PKG_ARCH=armhf
+# For arm64 use:
+# ARG PKG_ARCH=armv8
+ARG TARGET=armv7-unknown-linux-gnueabihf
+# For arm64 use:
+# ARG TARGET=aarch64-unknown-linux-gnu
+ARG TARGET_IMAGE=arm32v7-debian-wayland-base
+# For arm64 use:
+# ARG TARGET_IMAGE=arm64v8-debian-weston-vivante:bullseye
+FROM debian:bullseye as build
+
+ARG PKG_ARCH
+ARG TARGET
+ARG TARGET_IMAGE
+
+ENV CARGO_HOME=/cargo
+ENV PATH=/cargo/bin:$PATH
+ENV PKG_CONFIG_PATH="/usr/lib/arm-linux-gnueabihf/pkgconfig"
+ENV PKG_CONFIG_ALLOW_CROSS="true"
+ENV CARGO_TARGET_ARMV7_UNKNOWN_LINUX_GNUEABIHF_LINKER="/usr/bin/arm-linux-gnueabihf-gcc"
+ENV CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER="/usr/bin/aarch64-linux-gnu-gcc"
+ENV USER=root
+
+RUN dpkg --add-architecture ${PKG_ARCH} &amp;&amp; \
+    apt-get update &amp;&amp; apt-get install -y build-essential cmake libc6-${PKG_ARCH}-cross libc6-dev-${PKG_ARCH}-cross \
+    gcc-arm-linux-gnueabihf g++-aarch64-linux-gnu librust-gtk-dev libgtk-3-dev:${PKG_ARCH} pkg-config \
+    libdbus-1-dev libdbus-1-dev:${PKG_ARCH} curl
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs &gt; /usr/local/bin/rustup.sh
+RUN bash /usr/local/bin/rustup.sh -y
+RUN rustup default stable
+RUN rustup target add x86_64-unknown-linux-gnu
+RUN rustup target add ${TARGET}
+
+COPY glade/ .
+RUN cargo build --target=${TARGET} --release
+RUN ls -la
+
+FROM torizon/${TARGET_IMAGE}
+
+ENV DEBIAN_FRONTEND="noninteractive"
+
+RUN apt-get update &amp;&amp; apt-get install -y &amp;&amp; \
+    apt-get install libgtk-3-0
+
+COPY --from=build /target/a*/release/glade /usr/bin/
+COPY --from=build imgs/torizon-icon.png /home/torizon/imgs/
+
+CMD /usr/bin/glade
+</code></pre></div></div>
+
+<p>After taking a look, you might have notice that there is two stages:</p>
+
+<ol>
+  <li>FROM debian:bullseye as build</li>
+  <li>torizon/${TARGET_IMAGE}</li>
+</ol>
+
+  </section>
+</div>
+
+<div id="top" class="top-btn" onclick="moveTop()">
+  <i class="fas fa-chevron-up"></i>
+</div>
+
+<!-- Disqus -->
+
+
+<!-- Footer -->
+<footer>
+  <div class="footer">
+    Copyright © 2019
+    <a href="https://github.com/NAYE0NG">Nayeong Kim</a>.
+    Powered by Jekyll with
+    <a href="https://github.com/naye0ng/Grape-Theme">Grape Theme</a>.
+  </div>
+</footer>
+
+
+<script>
+  var lastScrollTop = 0;
+  window.onscroll = function () {
+    var st = document.body.scrollTop || document.documentElement.scrollTop;
+    if (st > 250) {
+      document.getElementById("top").style.display = "block"
+      if (st > lastScrollTop) {
+        document.getElementById("top").style.opacity = 0
+      } else {
+        document.getElementById("top").style.opacity = 1
+      }
+    } else {
+      document.getElementById("top").style.opacity = 0
+      if (st > lastScrollTop) {
+        document.getElementById("top").style.display = "none"
+      }
+    }
+    lastScrollTop = st <= 0 ? 0 : st;
+  }
+  function moveTop() {
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
+  }
+</script>
+  </div>
+</body>
+
+</html>
