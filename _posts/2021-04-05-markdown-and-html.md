@@ -104,10 +104,10 @@ CMD /usr/bin/glade
 
 After taking a look, you might have noticed that there are two stages:
 
-1. FROM debian:bullseye as build
+`1. FROM debian:bullseye as build`
 
 The first image, sometimes referenced as the SDK Container, is the one responsible for compiling our application, for that, it was installed Rust, the ARM packages(V7 or V8 depending on the PKG_ARCH), and also some environment variables were set.
 
-2. torizon/${TARGET_IMAGE}
+`2. torizon/${TARGET_IMAGE}`
 
 The second image is the target, which architecture is chosen depending on the TARGET_IMAGE, this stage is responsible for running the application itself, it installs the libgtk-3.0, copies the image that our application will use, and most important, it copies the binary created on the first stage. On the last command, it initializes the application.
