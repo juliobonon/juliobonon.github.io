@@ -1,0 +1,16 @@
+current directory: /home/juliobonon/projects/juliobonon.github.io/vendor/bundle/ruby/3.0.0/gems/racc-1.5.2/ext/racc/cparse
+/home/linuxbrew/.linuxbrew/opt/ruby/bin/ruby -I /home/linuxbrew/.linuxbrew/Cellar/ruby/3.0.1/lib/ruby/3.0.0 -r ./siteconf20210517-62702-dp2bht.rb extconf.rb
+checking for rb_ary_subseq()... yes
+creating Makefile
+
+current directory: /home/juliobonon/projects/juliobonon.github.io/vendor/bundle/ruby/3.0.0/gems/racc-1.5.2/ext/racc/cparse
+make DESTDIR\= clean
+
+current directory: /home/juliobonon/projects/juliobonon.github.io/vendor/bundle/ruby/3.0.0/gems/racc-1.5.2/ext/racc/cparse
+make DESTDIR\=
+compiling cparse.c
+linking shared-object racc/cparse.so
+
+current directory: /home/juliobonon/projects/juliobonon.github.io/vendor/bundle/ruby/3.0.0/gems/racc-1.5.2/ext/racc/cparse
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 cparse.so ./.gem.20210517-62702-hb6ngr/racc

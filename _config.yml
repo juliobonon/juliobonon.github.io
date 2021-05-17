@@ -18,7 +18,14 @@ theme_settings :
         experience : Toradex, Embedded Linux Intern
     skills :
       - skill : Embedded Linux, Docker and Python
-        value : 85  # Percent value
+        value : 90
+    experience :
+      - start : 2019-02-15
+        end : present
+        experience : Fatec Campinas, System Analysis and Development
+    skills :
+      - skill : Software Engineering,  Algorithms (Logical Programming C and Java),  Operational Systems and Software Development (Flutter and Python)
+        value : 80
 
   # Icons
   icons :
