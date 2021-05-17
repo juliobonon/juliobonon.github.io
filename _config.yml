@@ -21,7 +21,7 @@ theme_settings :
         value : 90
     experience :
       - start : 2019-02-15
-        end : present
+        end : 2021-12-16
         experience : Fatec Campinas, System Analysis and Development
     skills :
       - skill : Software Engineering,  Algorithms (Logical Programming C and Java),  Operational Systems and Software Development (Flutter and Python)
