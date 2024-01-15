@@ -106,5 +106,5 @@ The first stage is known to be the SDK, which means that it's responsible for in
 
 The second stage is the application itself, it installs all the runtime-dependent packages and copies all the necessary files (in this case, just the binary and the image used by the application) from the first stage. For the final step, it just runs the binary which result on the application running on the module.
 
-![Application Running on the Apalis iMX8 and the LVDS Display](https://github.com/juliobonon/rustarm/blob/master/docs/running-rust-on-torizon.png)
+![Application Running on the Apalis iMX8 and the LVDS Display](https://raw.githubusercontent.com/juliobonon/rustarm/master/docs/running-rust-on-torizon.png)
 
